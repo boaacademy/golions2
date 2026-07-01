@@ -5,16 +5,16 @@ Capture sauvegardée : debug_screenshots/04_apres_saisie_houston.png
 Capture sauvegardée : debug_screenshots/05_apres_selection_houston.png
 ERREUR pendant la recherche : Locator.click: Timeout 15000ms exceeded.
 Call log:
-  - waiting for get_by_text("Départ - Retour").first
+  - waiting for get_by_text("Départ").first
 
 Traceback (most recent call last):
-  File "/home/runner/work/golions2/golions2/check_tickets.py", line 137, in <module>
+  File "/home/runner/work/golions2/golions2/check_tickets.py", line 144, in <module>
     main()
-  File "/home/runner/work/golions2/golions2/check_tickets.py", line 120, in main
+  File "/home/runner/work/golions2/golions2/check_tickets.py", line 127, in main
     text = run_search()
            ^^^^^^^^^^^^
-  File "/home/runner/work/golions2/golions2/check_tickets.py", line 81, in run_search
-    page.get_by_text("Départ - Retour", exact=False).first.click(timeout=15000)
+  File "/home/runner/work/golions2/golions2/check_tickets.py", line 88, in run_search
+    page.get_by_text("Départ", exact=False).first.click(timeout=15000)
   File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 17672, in click
     self._sync(
   File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
@@ -32,5 +32,5 @@ Traceback (most recent call last):
     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 playwright._impl._errors.TimeoutError: Locator.click: Timeout 15000ms exceeded.
 Call log:
-  - waiting for get_by_text("Départ - Retour").first
+  - waiting for get_by_text("Départ").first
 
