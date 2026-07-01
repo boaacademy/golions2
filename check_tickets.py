@@ -123,17 +123,32 @@ def run_search() -> str:
         text = page.inner_text("body")
 
         browser.close()
-        return text
+        return text, page.url
+
+
+BLOCKED_INDICATORS = [
+    "access denied",
+    "blocked by the security rules",
+    "request unsuccessful",
+    "incapsula",
+]
 
 
 def main() -> None:
     try:
-        text = run_search()
+        text, final_url = run_search()
     except Exception as e:
         print(f"ERREUR pendant la recherche : {e}")
         raise
 
-    if NO_FLIGHT_TEXT.lower() in text.lower():
+    lowered = text.lower()
+
+    if any(ind in lowered for ind in BLOCKED_INDICATORS):
+        print(
+            "BLOQUÉ par le pare-feu du site (probablement IP de datacenter). "
+            "Pas d'alerte envoyée, ce run n'est pas fiable."
+        )
+    elif NO_FLIGHT_TEXT.lower() in lowered:
         print("Toujours aucun vol disponible.")
     else:
         notify(
