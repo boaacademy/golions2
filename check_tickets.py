@@ -78,7 +78,14 @@ def run_search() -> str:
         shot(page, "05_apres_selection_houston")
 
         # 2. Ouvrir le calendrier et choisir les dates
-        page.get_by_text("Départ - Retour", exact=False).first.click(timeout=15000)
+        # On sauvegarde le HTML pour debug en cas de nouveau blocage
+        try:
+            with open(os.path.join(DEBUG_DIR, "page_avant_dates.html"), "w", encoding="utf-8") as f:
+                f.write(page.content())
+        except Exception as e:
+            print(f"Impossible de sauvegarder le HTML: {e}")
+
+        page.get_by_text("Départ", exact=False).first.click(timeout=15000)
         shot(page, "06_apres_clic_dates")
 
         page.get_by_text("Choisissez vos dates", exact=False).wait_for(timeout=10000)
