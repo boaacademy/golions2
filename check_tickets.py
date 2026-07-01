@@ -112,9 +112,13 @@ def run_search() -> str:
         except PWTimeout:
             shot(page, "12_pas_de_mentions_legales")
 
-        # 5. Attendre la page de résultats et lire le contenu
-        page.wait_for_url("**/booking/cart-new/matrix**", timeout=30000)
+        # 5. Attendre la fin de la recherche (page intermédiaire puis résultats)
+        try:
+            page.wait_for_load_state("networkidle", timeout=45000)
+        except PWTimeout:
+            print("networkidle timeout, on continue quand même")
         page.wait_for_timeout(3000)
+        print(f"URL finale : {page.url}")
         shot(page, "13_page_resultats")
         text = page.inner_text("body")
 
