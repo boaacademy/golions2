@@ -5,6 +5,9 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -22,15 +25,25 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Vérifier la disponibilité des vols
+        id: check
+        continue-on-error: true
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python check_tickets.py
+        run: python check_tickets.py 2>&1 | tee run_log.txt
 
-      - name: Sauvegarder les captures d'écran de debug
+      - name: Sauvegarder les résultats de debug dans le repo
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug-screenshots
-          path: debug_screenshots/
-          retention-days: 3
-          if-no-files-found: ignore
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf debug
+          mkdir -p debug
+          cp -r debug_screenshots debug/screenshots 2>/dev/null || true
+          cp run_log.txt debug/run_log.txt 2>/dev/null || true
+          git add debug
+          git diff --staged --quiet || git commit -m "Debug run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push || echo "Rien à pousser ou push échoué"
+
+      - name: Échouer le job si le script a échoué
+        if: steps.check.outcome == 'failure'
+        run: exit 1
