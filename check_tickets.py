@@ -85,7 +85,7 @@ def run_search() -> str:
         except Exception as e:
             print(f"Impossible de sauvegarder le HTML: {e}")
 
-        page.get_by_text("Départ", exact=False).first.click(timeout=15000)
+        page.get_by_placeholder("Départ - Retour").click(timeout=15000)
         shot(page, "06_apres_clic_dates")
 
         page.get_by_text("Choisissez vos dates", exact=False).wait_for(timeout=10000)
