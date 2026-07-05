@@ -2,28 +2,9 @@ Capture sauvegardée : debug_screenshots/01_page_chargee.png
 Capture sauvegardée : debug_screenshots/02_apres_cookies.png
 Capture sauvegardée : debug_screenshots/03_apres_clic_destination.png
 Capture sauvegardée : debug_screenshots/04_apres_saisie_houston.png
-Capture sauvegardée : debug_screenshots/05_apres_selection_houston.png
-Capture sauvegardée : debug_screenshots/06_apres_clic_dates.png
-Capture sauvegardée : debug_screenshots/07_calendrier_ouvert.png
-Capture sauvegardée : debug_screenshots/08_apres_clic_depart.png
-Capture sauvegardée : debug_screenshots/09_apres_clic_retour.png
 ERREUR pendant la recherche : Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_text("Confirmer", exact=True)
-    - locator resolved to <button disabled class="px-4 py-2 text-white rounded transition-all duration-200 bg-gray-400 cursor-not-allowed opacity-50">Confirmer</button>
-  - attempting click action
-    2 × waiting for element to be visible, enabled and stable
-      - element is not enabled
-    - retrying click action
-    - waiting 20ms
-    2 × waiting for element to be visible, enabled and stable
-      - element is not enabled
-    - retrying click action
-      - waiting 100ms
-    58 × waiting for element to be visible, enabled and stable
-       - element is not enabled
-     - retrying click action
-       - waiting 500ms
+  - waiting for get_by_text("George Bush Intercontinental Airport").first
 
 Traceback (most recent call last):
   File "/home/runner/work/golions2/golions2/check_tickets.py", line 163, in <module>
@@ -31,8 +12,8 @@ Traceback (most recent call last):
   File "/home/runner/work/golions2/golions2/check_tickets.py", line 139, in main
     text, final_url = run_search()
                       ^^^^^^^^^^^^
-  File "/home/runner/work/golions2/golions2/check_tickets.py", line 100, in run_search
-    page.get_by_text("Confirmer", exact=True).click()
+  File "/home/runner/work/golions2/golions2/check_tickets.py", line 77, in run_search
+    page.get_by_text(DESTINATION_RESULT_TEXT, exact=False).first.click()
   File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 17672, in click
     self._sync(
   File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
@@ -50,19 +31,5 @@ Traceback (most recent call last):
     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_text("Confirmer", exact=True)
-    - locator resolved to <button disabled class="px-4 py-2 text-white rounded transition-all duration-200 bg-gray-400 cursor-not-allowed opacity-50">Confirmer</button>
-  - attempting click action
-    2 × waiting for element to be visible, enabled and stable
-      - element is not enabled
-    - retrying click action
-    - waiting 20ms
-    2 × waiting for element to be visible, enabled and stable
-      - element is not enabled
-    - retrying click action
-      - waiting 100ms
-    58 × waiting for element to be visible, enabled and stable
-       - element is not enabled
-     - retrying click action
-       - waiting 500ms
+  - waiting for get_by_text("George Bush Intercontinental Airport").first
 
