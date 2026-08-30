@@ -1,6 +1,8 @@
-ERREUR pendant la recherche : Page.goto: net::ERR_NAME_NOT_RESOLVED at https://golions.royalairmaroc.com/
+Capture sauvegardée : debug_screenshots/01_page_chargee.png
+Capture sauvegardée : debug_screenshots/02_apres_cookies.png
+ERREUR pendant la recherche : Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - navigating to "https://golions.royalairmaroc.com/", waiting until "load"
+  - waiting for get_by_text("Destination").first
 
 Traceback (most recent call last):
   File "/home/runner/work/golions2/golions2/check_tickets.py", line 163, in <module>
@@ -8,24 +10,24 @@ Traceback (most recent call last):
   File "/home/runner/work/golions2/golions2/check_tickets.py", line 139, in main
     text, final_url = run_search()
                       ^^^^^^^^^^^^
-  File "/home/runner/work/golions2/golions2/check_tickets.py", line 61, in run_search
-    page.goto(URL, timeout=30000)
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 9875, in goto
+  File "/home/runner/work/golions2/golions2/check_tickets.py", line 69, in run_search
+    page.get_by_text("Destination", exact=False).first.click()
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 17876, in click
     self._sync(
   File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
     return task.result()
            ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_page.py", line 560, in goto
-    return await self._main_frame.goto(**locals_to_params(locals()))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 156, in goto
-    await self._channel.send(
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py", line 165, in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 593, in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
   File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
     return await self._connection.wrap_api_call(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-playwright._impl._errors.Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://golions.royalairmaroc.com/
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - navigating to "https://golions.royalairmaroc.com/", waiting until "load"
+  - waiting for get_by_text("Destination").first
 
